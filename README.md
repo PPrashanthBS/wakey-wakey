@@ -124,10 +124,22 @@ The platform consists of the following components:
 
 ## Getting Started
 
+### Quick Start
+
+For detailed setup instructions, see [SETUP.md](SETUP.md).
+
+Quick installation:
+
+```sh
+git clone https://github.com/PPrashanthBS/wakey-wakey.git
+cd wakey-wakey
+./quickstart.sh  # or: npm install
+```
+
 ### Prerequisites
 
 - Node.js >= 18
-- Bun >= 1.2.4
+- Bun >= 1.2.4 (or npm as alternative)
 - PostgreSQL database
 
 ### Installation
@@ -135,9 +147,30 @@ The platform consists of the following components:
 Clone the repository and install dependencies:
 
 ```sh
-git clone https://github.com/YadlaMani/wakey-wakey.git
+git clone https://github.com/PPrashanthBS/wakey-wakey.git
 cd wakey-wakey
 bun install
+# or use npm if Bun is not available
+npm install
+```
+
+Configure environment variables (see [SETUP.md](SETUP.md) for details):
+
+```sh
+cp .env.example .env
+cp apps/api/.env.example apps/api/.env
+cp apps/hub/.env.example apps/hub/.env
+cp apps/web/.env.example apps/web/.env
+# Edit each .env file with your actual credentials
+```
+
+Generate Prisma client and run migrations:
+
+```sh
+cd packages/db
+npx prisma generate
+npx prisma migrate dev --name init
+cd ../..
 ```
 
 ### Development
@@ -146,7 +179,14 @@ Start the development environment:
 
 ```sh
 bun run dev
+# or
+npm run dev
 ```
+
+This starts:
+- **Web App**: http://localhost:3000
+- **API Server**: http://localhost:5555
+- **Hub Server**: WebSocket on port 5050
 
 ### Build
 
@@ -154,6 +194,8 @@ Build all apps and packages:
 
 ```sh
 bun run build
+# or
+npm run build
 ```
 
 ## Contributing
